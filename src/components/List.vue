@@ -102,7 +102,7 @@ export default {
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     &--empty {
-      color: lightgray;
+      color: skyblue;
     }
   }
   &__link {
