@@ -27,4 +27,17 @@ export default {
 body {
   background: #F4F4F4;
 }
+
+::-webkit-scrollbar {
+  height: 6px;
+  width: 10px;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-track {
+  background-clip: content-box; /* Важно */
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(52, 106, 213);
+  border-radius: 6px;
+}
 </style>
