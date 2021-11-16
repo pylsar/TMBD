@@ -87,6 +87,7 @@ export default {
       letter-spacing: 5px;
       transform: translateX(-15px);
       transition: all 0.5s ease;
+      
     }
   }
 }

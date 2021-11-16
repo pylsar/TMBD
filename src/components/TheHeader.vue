@@ -27,6 +27,13 @@
             </div>
           </router-link>
         </li>
+        <li>
+          <router-link to="/comments">
+            <div class="menu__link">
+              <span>Комментарии</span>
+            </div>
+          </router-link>
+        </li>
       </ul>
     </nav>
   </header>
