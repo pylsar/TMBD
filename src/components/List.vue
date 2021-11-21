@@ -1,8 +1,34 @@
 <template>
-  <section>
-    <h1>Ща Глянем</h1>
+  <section class="container">
+    <h1>Топ Новинок</h1>
+    <div class="list__navigation">
+      <div class="list__navigation-input">
+        <input type="text" v-model="srch" />
+      </div>
+      <div class="list__btns">
+        <button
+          class="list__navigation-btn"
+          @click="prewPage"
+          :disabled="pageNumber === 0"
+          :class="{ unActive: pageNumber === 0 }"
+        >
+          <span>Предыдущая</span>
+        </button>
+        <button
+          class="list__navigation-btn"
+          @click="nextPage"
+          :disabled="pageNumber >= pageCount - 1"
+        >
+          <span>Следующая</span>
+        </button>
+      </div>
+    </div>
     <div class="list">
-      <div class="list__card" v-for="(movie, index) in TMDB" :key="index">
+      <div
+        class="list__card"
+        v-for="(movie, index) in paginatedData"
+        :key="index"
+      >
         <div class="list__card-img">
           <router-link :to="'/list/' + movie.id" class="list__link">
             <img
@@ -29,22 +55,33 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-
 import { TimelineMax } from "gsap/all";
-
-// gsap.registerPlugin(ScrollTrigger);
 
 export default {
   name: "List",
   data() {
     return {
-      // controller: null,
-      // tween: null,
-      // scene: null,
+      srch: "",
+      pageNumber: 0,
+      size: 8,
     };
   },
   computed: {
     ...mapGetters(["TMDB"]),
+    paginatedData() {
+      return this.filteredData.slice(
+        this.pageNumber * this.size,
+        this.pageNumber * this.size + this.size
+      );
+    },
+    filteredData() {
+      return this.TMDB.filter((item) => {
+        return item.title.toLowerCase().includes(this.srch.toLowerCase());
+      });
+    },
+    pageCount() {
+      return Math.ceil(this.TMDB.length / this.size);
+    },
   },
   methods: {
     ...mapActions(["GET_TMDB_FROM_API"]),
@@ -58,6 +95,12 @@ export default {
         },
       });
     },
+    prewPage() {
+      this.pageNumber--;
+    },
+    nextPage() {
+      this.pageNumber++;
+    },
   },
   mounted() {
     this.GET_TMDB_FROM_API();
@@ -66,6 +109,11 @@ export default {
 };
 </script> 
 <style lang="scss">
+h1 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+}
 .list {
   &__card {
     width: 100%;
@@ -102,7 +150,7 @@ export default {
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     &--empty {
-      color: skyblue;
+      color: lightgray;
     }
   }
   &__link {
@@ -111,6 +159,52 @@ export default {
     margin-left: auto;
     text-decoration: none;
   }
+  &__navigation {
+    width: 50vw;
+    margin: 0 auto 40px auto;
+  }
+  &__navigation-input {
+    width: 50vw;
+    & input {
+      width: 100%;
+      height: 30px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      padding-left: 10px;
+      margin-bottom: 10px;
+      &::placeholder {
+        opacity: 0.5;
+      }
+    }
+  }
+  &__navigation-btn {
+    width: 25vw;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background: skyblue;
+    cursor: pointer;
+    &:first-child {
+      border-right: 1px solid purple;
+      border-radius: 10px 0 0 10px;
+    }
+    &:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+    &:hover span {
+      color: white;
+    }
+  }
+}
+.container {
+  width: 90vw;
+  margin: 0 auto;
+}
+.unActive {
+  pointer-events: none;
 }
 </style>
 

@@ -1,6 +1,7 @@
 <template>
   <div class="info">
-    <h1>TMBD api</h1>
+    <!-- <h1>TMBD api</h1> -->
+    <the-canvas />
     <div class="info__box">
       <h3>Используемые технологии:</h3>
       <div class="info__container">
@@ -17,8 +18,13 @@
   </div>
 </template>
 <script>
+import TheCanvas from "@/components/TheCanvas.vue";
+
 export default {
   name: "About",
+  components: {
+    TheCanvas,
+  },
 };
 </script>
 <style lang="scss">

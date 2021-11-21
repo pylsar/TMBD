@@ -1,7 +1,7 @@
 <template>
   <div class="comments">
     <form class="comments__form" @submit.prevent="onSubmit">
-      <div>
+      <div class="comments__form-items">
         <label for="nameMovie">Название фильма</label>
         <input
           v-model="movie"
@@ -10,7 +10,7 @@
           placeholder="писать тут"
         />
       </div>
-      <div>
+      <div class="comments__form-items">
         <label for="nameUser">Имя пользователя</label>
         <input
           v-model="user"
@@ -19,21 +19,26 @@
           placeholder="писать тут"
         />
       </div>
-      <div>
+      <div class="comments__form-items">
         <label for="text">Комментарий</label>
         <textarea
           v-model="text"
           type="textarea"
           id="text"
           placeholder="писать тут"
+          rows="5"
         />
       </div>
-      <button @click="addComment">Done</button>
+      <button class="comments__btn" @click="addComment">Done</button>
     </form>
     <div class="comments__text" v-for="(comment, i) in comments" :key="i">
       <div class="comments__head">
-        <span>{{ comment.movie }}</span>
-        <span>{{ comment.user }}</span>
+        <span>
+          <strong>{{ comment.movie }}</strong>
+        </span>
+        <span>
+          <strong>{{ comment.user }}</strong>
+        </span>
       </div>
       <div class="comments__content">
         {{ comment.text }}
@@ -52,9 +57,9 @@ export default {
       comment: "",
       comments: [
         {
-          movie: "jhslkfd",
-          user: "askjhd",
-          text: "skdjfh",
+          movie: "Оно",
+          user: "Наливкин",
+          text: "Ну ни че так кинцо, можно посмотреть",
         },
       ],
     };
@@ -75,6 +80,18 @@ export default {
       }
     },
   },
+  mounted() {
+    if (localStorage.getItem("comments")) {
+      this.comments = JSON.parse(localStorage.getItem("comments"));
+    }
+  },
+  watch: {
+    comments: {
+      handler() {
+        localStorage.setItem("comments", JSON.stringify(this.comments));
+      },
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -83,27 +100,77 @@ export default {
   display: flex;
   flex-direction: column;
   &__form {
-    width: 100%;
-    height: 50vh;
+    width: 90%;
+    margin: 0 auto;
+    height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    border: 1px solid red;
+    align-items: flex-start;
+  }
+  &__form-items {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    & label {
+      width: 20%;
+      margin-right: 20px;
+    }
+    & input,
+    & textarea {
+      width: 70%;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      padding-left: 10px;
+      &::placeholder {
+        opacity: 0.5;
+      }
+    }
+    & input {
+      height: 30px;
+    }
+    & textarea {
+      resize: none;
+    }
+  }
+  &__btn {
+    padding: 10px 30px;
+    margin: 0 auto;
+    background: skyblue;
+    outline: none;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    letter-spacing: 1px;
+    &:hover {
+      cursor: pointer;
+      border-radius: 20px;
+      letter-spacing: 5px;
+    }
   }
   &__text {
     width: 80%;
     margin: 20px auto;
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
     padding: 10px 20px;
+    background: white;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    border-radius: 10px;
   }
   &__head {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  &__content {
+    margin-top: 20px;
   }
 }
 </style>
