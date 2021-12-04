@@ -121,6 +121,11 @@ h1 {
     display: flex;
     margin-bottom: 20px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    filter: grayscale(1);
+    transition: filter 0.2s ease;
+    &:hover{
+      filter: grayscale(0);
+    }
   }
   &__card-img {
     height: 300px;
