@@ -120,7 +120,7 @@ h1 {
     height: 300px;
     display: flex;
     margin-bottom: 20px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgb(22, 23, 24) 0px 8px 24px;
     filter: grayscale(1);
     transition: filter 0.2s ease;
     &:hover{
