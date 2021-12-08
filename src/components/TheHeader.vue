@@ -79,7 +79,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 10;
-  background: rgb(219, 213, 213);
+  background: rgb(209, 180, 213);
   outline: none;
   border: none;
   cursor: pointer;
@@ -127,5 +127,6 @@ export default {
 .showNav {
   transform: translateY(24px);
   transition: all 0.5s ease;
+  background: rgb(209, 180, 213);
 }
 </style>

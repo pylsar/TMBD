@@ -41,7 +41,7 @@ export default {
           ".home__navigation li a",
           2,
           { backgroundColor: "transparent" },
-          { backgroundColor: "rgb(219, 213, 213)" },
+          { backgroundColor: "rgb(209, 180, 213)" },
           3
         );
     },
