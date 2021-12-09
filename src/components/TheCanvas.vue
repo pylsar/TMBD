@@ -1,12 +1,17 @@
 <template>
   <div>
-    <canvas></canvas>
+    <canvas id="canvas"></canvas>
   </div>
 </template>
 <script>
 import * as THREE from "three";
+
+			// import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+			// import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 // var OrbitControls = require(" three-orbit-controls")(THREE);
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { FontLoader } from 'three';
+
 export default {
   name: "TheCanvas",
   data() {
@@ -52,7 +57,7 @@ export default {
     scene.add(pointLight);
     scene.add(camera);
 
-    let canvas = document.querySelector("canvas");
+    let canvas = document.querySelector("#canvas");
 
     let controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
